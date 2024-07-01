@@ -1,0 +1,50 @@
+{
+    "nvhpc": {
+            "c": {"compiler": "nvc", "extension":".c"},
+            "c++": {"compiler": "nvc++", "extension": ".cxx"},
+            "fortran": {"compiler": "nvfortran", "extension": ".f90"},
+	    "cuda": {"compiler": "nvcc", "extension": ".cu"},
+            "mpi_c": {"compiler": "mpicc", "extension":".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-acc",
+                        "opts": ["-Minfo=all"],
+                        "accopts_switch": "-gpu=",
+                        "accopts_default":"cc70"},
+            "openmp": {"activate": "-mp"},
+            "modules": ["nvhpc/22.2/gcc-4.8.5","openmpi/3.1.6/nvhpc-22.2-cuda","cuda/11.5.0/nvhpc-22.2"]
+        },
+        "gcc": {
+            "c": {"compiler": "gcc", "extension": ".c"},
+            "c++": {"compiler": "g++", "extension": ".cxx"},
+            "fortran": {"compiler": "gfortran", "extension": ".f90"},
+            "mpi_c": {"compiler": "mpicc", "extension": ".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-fopenacc",
+                        "opts": ["-fopt-info-optimized-omp"],
+                        "accopts_switch": "-foffload=",
+                        "accopts_default": "nvptx-none" },
+            "openmp": {"activate": "-fopenmp"},
+            "modules": ["gcc/11.2.0/gcc-4.8.5"]
+        },
+        "profiling":{
+            "nsys_tempdir_var": "TMPDIR",
+            "command": "nsys profile",
+            "default_options": ["--trace=openacc,osrt,cuda,nvtx", "--stats=true"]
+        },
+        "launcher":{
+            "command": "srun",
+            "tasks": "--ntasks=",
+            "threads": "--cpus-per-task=",
+            "gpus": "--gres=gpu:",
+            "options": ["--unbuffered", "--partition=gpu_test", "--time=00:10:00"]
+        },
+        "default_settings":{
+            "gpus":1,
+            "compilers": "nvhpc",
+            "language": "fortran",
+            "c_headers":[]
+        },
+        "modules": "lmod"
+}

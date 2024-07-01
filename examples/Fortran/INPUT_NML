@@ -1,0 +1,36 @@
+&TIME_CONFIG
+dt=0.00001
+end_time=0.05
+print_config=0.05
+print_thermo=0.0005
+write_restart=0
+read_restart=0
+/
+dt is the integration timestep
+end time determines the duration of the simulation 
+ ( the number of steps is (end_time - start_time)/ dt   the start time is given in the CONFIG file )
+print_config is the interval to output the configuration
+print_thermo is the interval to output the thermodynamic properties
+write_restart determines the format of the output of the configuration
+  0 : only positions
+  1 : positions & velocities
+  2 ! positions, velocities & forces
+read_restart determines the format of the input of the configuration
+  0 : only positions
+  1 : positions & velocities
+  2 ! positions, velocities & forces
+
+&LJ_CONFIG
+sigma0=2
+epsilon0=50
+/
+sigma0 is the distance at which the potential is zero
+epsilon0 is the maximum value of the depth of the potential
+
+&BERENDSEN_CONFIG
+T0=50
+tau_temp=0.01
+/
+T0 is the targeted temperature
+tau_temp is the time constant of the coupling external bath
+

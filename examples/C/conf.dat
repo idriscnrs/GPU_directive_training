@@ -1,0 +1,13 @@
+#natoms have to be a perfect cube if you generate the coordinates
+natoms 8000
+nsteps 50000
+dump_dyn 1000
+dump_file dyn.xyz
+dt 0.000001
+T 2000
+tau 0.00001
+LJ_sigma 1.8
+LJ_epsilon -34.
+LJ_cutoff 12.
+LJ_tolerance 0.0000001
+lattice 70.

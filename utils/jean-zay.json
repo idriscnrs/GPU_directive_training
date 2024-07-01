@@ -1,0 +1,63 @@
+{
+        "pgi": {
+            "c": {"compiler": "pgcc", "extension":".c"},
+            "c++": {"compiler": "pgc++", "extension": ".cxx"},
+            "fortran": {"compiler": "pgf90", "extension": ".f90"},
+            "mpi_c": {"compiler": "mpicc", "extension":".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-acc",
+                        "opts": ["-Minfo=all"],
+                        "accopts_switch": "-ta=",
+                        "accopts_default":"tesla:cc70"},
+            "openmp": {"activate": "-mp"},
+            "modules": ["pgi/20.1", "openmpi/4.0.2-cuda", "cuda/10.2"]
+        },
+    "nvhpc": {
+            "c": {"compiler": "nvc", "extension":".c"},
+            "c++": {"compiler": "nvc++", "extension": ".cxx"},
+            "fortran": {"compiler": "nvfortran", "extension": ".f90"},
+	    "cuda": {"compiler": "nvcc", "extension": ".cu"},
+            "mpi_c": {"compiler": "mpicc", "extension":".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-acc",
+                        "opts": ["-Minfo=all"],
+                        "accopts_switch": "-gpu=",
+                        "accopts_default":"cc70"},
+            "openmp": {"activate": "-mp"},
+            "modules": ["nvidia-nsight-systems/2021.1.1", "nvidia-compilers/24.3", "cuda/12.2.0", "openmpi/4.1.5-cuda"]
+        },
+        "gcc": {
+            "c": {"compiler": "gcc", "extension": ".c"},
+            "c++": {"compiler": "g++", "extension": ".cxx"},
+            "fortran": {"compiler": "gfortran", "extension": ".f90"},
+            "mpi_c": {"compiler": "mpicc", "extension": ".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-fopenacc",
+                        "opts": ["-fopt-info-optimized-omp"],
+                        "accopts_switch": "-foffload=",
+                        "accopts_default": "nvptx-none" },
+            "openmp": {"activate": "-fopenmp"},
+            "modules": ["gcc/10.1.0-cuda-openacc", "openmpi/4.0.2-cuda", "cuda/10.2"]
+        },
+        "profiling":{
+            "nsys_tempdir_var": "JOBSCRATCH",
+            "command": "nsys profile",
+            "default_options": ["--trace=openacc,osrt,cuda,nvtx", "--stats=true"]
+        },
+        "launcher":{
+            "command": "srun",
+            "tasks": "--ntasks=",
+            "threads": "--cpus-per-task=",
+            "gpus": "--gres=gpu:",
+            "options": ["--unbuffered", "--account=sos@v100", "--qos=qos_gpu-dev", "--time=00:10:00", "--hint=nomultithread"]
+        },
+        "default_settings":{
+            "gpus":1,
+            "compilers": "nvhpc",
+            "language": "fortran",
+            "c_headers":[]
+        }
+}

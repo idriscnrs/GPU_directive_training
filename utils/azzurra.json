@@ -1,0 +1,41 @@
+{
+    "nvhpc": {
+            "c": {"compiler": "nvc", "extension":".c"},
+            "c++": {"compiler": "nvc++", "extension": ".cxx"},
+            "fortran": {"compiler": "nvfortran", "extension": ".f90"},
+            "mpi_c": {"compiler": "mpicc", "extension":".c"},
+            "mpi_c++": {"compiler": "mpicxx", "extension": ".cxx"},
+            "mpi_fortran": {"compiler": "mpif90", "extension": ".f90"},
+            "openacc": {"activate": "-acc",
+                        "opts": ["-Minfo=all"],
+                        "accopts_switch": "-gpu=",
+                        "accopts_default":"cc70"},
+            "openmp": {"activate": "-mp"},
+            "modules": ["nvhpc/21.7", "cuda/11.0", "openmpi"]
+        },
+        "profiling":{
+            "nsys_tempdir_var": "JOBSCRATCH",
+            "command": "nsys profile",
+            "default_options": ["--trace=openacc,osrt,cuda,nvtx", "--stats=true"]
+        },
+        "launcher":{
+            "command": "srun",
+            "tasks": "--ntasks=",
+            "threads": "--cpus-per-task=8",
+            "gpus": "--gres=gpu:",
+            "options": ["--partition=gpu", "--unbuffered", "--account=training", "--time=00:10:00", "--hint=nomultithread"]
+        },
+        "default_settings":{
+            "gpus":1,
+            "compilers": "nvhpc",
+            "language": "fortran",
+            "c_headers":[]
+        },
+        "remote":{
+            "enable": true,
+            "host": "login-hpc.univ-cotedazur.fr",
+            "user": "<user tochange>",
+            "directory": "/workspace/<user tochange>/OpenACC"
+        },
+	"modules": "lmod"
+}

@@ -1,0 +1,10 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+jupyterlab
+matplotlib
+numpy
+pandas
+paramiko
+python
+jedi==0.19.1

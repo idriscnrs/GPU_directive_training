@@ -1,0 +1,9 @@
+[project]
+name = "idrcomp"
+version = "0.1.0"
+authors = [{name="Thibaut Véry", email="thibaut.very@idris.fr"}]
+requires-python = ">=3.7"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
